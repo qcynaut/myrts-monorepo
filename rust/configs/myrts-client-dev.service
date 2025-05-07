@@ -1,0 +1,18 @@
+[Unit]
+Description=Client for myrts
+After=network.target
+
+[Service]
+ExecStart=/var/lib/myrts/myrts-client
+User=root
+Restart=always
+Environment="LOG_LEVEL=debug"
+Environment="LOG_PATH=/var/lib/myrts/logs"
+Environment="DATABASE_URL=/var/lib/myrts/myrts-client.db"
+Environment="DATA_PATH=/var/lib/myrts/data"
+Environment="DEVICE_DESCRIPTION={{DESCRIPTION}}"
+Environment="DEVICE_ADDRESS={{ADDRESS}}"
+Environment="API_URL=wss://api.myrts.qcynaut.tech/ws"
+
+[Install]
+WantedBy=multi-user.target

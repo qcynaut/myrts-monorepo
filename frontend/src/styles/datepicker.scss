@@ -1,0 +1,34 @@
+.flatpickr-day {
+    &.selected {
+        @apply bg-primary-500 border-none;
+        &:hover {
+            @apply bg-primary-400;
+        }
+    }
+    &:hover {
+        @apply bg-primary-300;
+    }
+}
+.flatpickr-weekdays {
+    @apply bg-primary-500;
+    .flatpickr-weekday {
+        @apply text-white bg-primary-500;
+    }
+}
+.flatpickr-months {
+    @apply bg-primary-500;
+    .flatpickr-month {
+        @apply text-white bg-primary-500;
+    }
+    .flatpickr-monthDropdown-months {
+        @apply text-white bg-primary-500;
+    }
+}
+.noheader {
+    .flatpickr-months {
+        display: none !important;
+    }
+    .flatpickr-weekdays {
+        display: none !important;
+    }
+}

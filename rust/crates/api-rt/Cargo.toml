@@ -1,0 +1,18 @@
+[package]
+name = "api-rt"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1.0.69"
+quote = "1.0.33"
+serde = { version = "1.0.188", features = ["derive"], optional = true }
+serde_yaml = { version = "0.9.25", optional = true }
+syn = { version = "2.0.38", features = ["full"] }
+
+[features]
+default = []
+doc = ["serde", "serde_yaml"]

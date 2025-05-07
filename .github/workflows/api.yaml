@@ -1,0 +1,60 @@
+name: API CI
+
+on:
+    push:
+        branches:
+            - main
+            - master
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Setup Rust
+              uses: actions-rs/toolchain@v1
+              with:
+                toolchain: stable
+                override: true
+            - name: Prepare Dependencies
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y pkg-config libopusfile-dev llvm-dev libclang-dev clang openssl libssl-dev libasound2-dev libudev-dev libavutil-dev libavcodec-dev libavformat-dev libavfilter-dev libavdevice-dev ffmpeg libpq-dev upx-ucl
+            - name: Build
+              run: |
+                source $HOME/.cargo/env
+                cd rust
+                cargo build --release -p api-bin
+                upx --best --lzma target/release/api-bin
+                cp target/release/api-bin /tmp/api-bin
+            - name: Store Artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: api-bin
+                path: /tmp/api-bin
+    
+    build-client:
+        runs-on: ubuntu-24.04-arm
+        steps:
+            - uses: actions/checkout@v4
+            - name: Setup Rust
+              uses: actions-rs/toolchain@v1
+              with:
+                toolchain: stable
+                override: true
+            - name: Prepare Dependencies
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y pkg-config libopusfile-dev llvm-dev libclang-dev clang openssl libssl-dev libasound2-dev libudev-dev libavutil-dev libavcodec-dev libavformat-dev libavfilter-dev libavdevice-dev ffmpeg libpq-dev upx-ucl
+            - name: Build
+              run: |
+                source $HOME/.cargo/env
+                cd rust
+                cargo build --release -p myrts-client
+                upx --best --lzma target/release/myrts-client
+                cp target/release/myrts-client /tmp/myrts-client
+            - name: Store Artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: myrts-client
+                path: /tmp/myrts-client

@@ -1,0 +1,20 @@
+[package]
+name = "api-bin"
+version = "0.1.0"
+edition = "2021"
+authors = ["Ade M Ramdani <qcynaut@gmail.com>"]
+description = "API for the `myrts`"
+license = "Proprietary"
+
+[dependencies]
+api = { path = "../../crates/api", features = ["doc"] }
+tokio = { version = "1.33.0", features = ["full"] }
+utils = { path = "../../crates/utils" }
+api-db = { path = "../../crates/api-db" }
+log = "0.4.20"
+types = { path = "../../crates/types", features = ["api-db", "proto"] }
+proto = { path = "../../crates/proto" }
+rtc = { path = "../../crates/rtc" }
+timeslots = { path = "../../crates/timeslots" }
+serde_json = "1.0.108"
+env_logger = "0.10.1"

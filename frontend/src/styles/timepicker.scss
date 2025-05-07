@@ -1,0 +1,24 @@
+.time {
+    div {
+        @apply text-4xl;
+        &:not(:nth-child(2)) {
+            @apply bg-gray-200 p-2 rounded-md;
+        }
+        color: black !important;
+    }
+}
+
+.btn {
+    @apply bg-primary-600;
+    background-color: rgb(76 78 191) !important;
+    color: white !important;
+}
+
+.btn-bar {
+    ._tp-cancel {
+        @apply hidden;
+    }
+    ._tp-now {
+        @apply hidden;
+    }
+}

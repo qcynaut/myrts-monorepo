@@ -1,0 +1,23 @@
+[Unit]
+Description=Remote access for myrts
+
+[Service]
+ExecStart=/var/lib/myrts/api-bin
+User=root
+Restart=always
+Environment="API_ASSETS=/data"
+Environment="API_PORT=1451"
+Environment="BASE_URL=https://api.myrts.id"
+Environment="DATABASE_URL=postgresql://postgres:ADB6E2bF*aeA6g3GAA5F6e4b1bfBb1dD@viaduct.proxy.rlwy.net:56560/myrts"
+Environment="JWT_SECRET=myrts"
+Environment="LOG_LEVEL=debug"
+Environment="SMTP_FROM=info@myrts.id"
+Environment="SMTP_HOST=smtp.elasticemail.com"
+Environment="SMTP_PASS=3E36989A73AD1BE852AFD0ED206F1457C8E7"
+Environment="SMTP_PORT=2525"
+Environment="SMTP_USER=info@myrts.id"
+Environment="STREAM_PORT=1452"
+Environment="WEB_URL=https://myrts.id"
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,30 @@
+.calendar {
+	.ec-toolbar div {
+		@apply flex items-center;
+
+		.ec-button-group .ec-button {
+			@apply border-none text-primary-500 font-bold;
+		}
+	}
+
+	.ec-header {
+		@apply py-4 rounded-t-md;
+
+		.ec-day {
+			@apply border-none;
+		}
+	}
+
+	.ec-today {
+		@apply bg-primary-500 bg-opacity-20;
+	}
+
+	.events {
+		@apply cursor-pointer;
+		min-height: 20px !important;
+
+		&.rep {
+			@apply bg-primary-800;
+		}
+	}
+}

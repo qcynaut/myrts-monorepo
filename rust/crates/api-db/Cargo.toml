@@ -1,0 +1,14 @@
+[package]
+name = "api-db"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+database = { path = "../database" }
+diesel = { version = "2.1.3", features = ["chrono", "postgres"] }
+url = "2.4.1"
+types = { path = "../types", features = ["api-db"] }
+utils = { path = "../utils", features = ["api"] }
+log = "0.4.20"

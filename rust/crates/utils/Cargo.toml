@@ -1,0 +1,26 @@
+[package]
+name = "utils"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+base64 = { version = "0.21.4", optional = true }
+bcrypt = { version = "0.15.0", optional = true }
+chrono = { version = "0.4.31", features = ["serde"] }
+chrono-tz = "0.8.3"
+ffmpeg-next = { version = "6.0.0", optional = true }
+hex = "0.4.3"
+jsonwebtoken = { version = "*", optional = true }
+lettre = { version = "0.10.4", optional = true }
+metadata = { version = "0.1.8", optional = true }
+rand = "0.8.5"
+reqwest = { version = "0.11.22", features = ["json"] }
+serde = { version = "1.0.189", features = ["derive"] }
+sha3 = "0.10.8"
+uuid = { version = "1.4.1", features = ["v4"] }
+
+[features]
+default = []
+api = ["base64", "bcrypt", "jsonwebtoken", "lettre", "metadata", "ffmpeg-next"]
