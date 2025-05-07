@@ -30,9 +30,9 @@ async fn turn(stream: Stream, state: Data<WsState>) -> Result<()> {
         return stream.disconnect().await;
     }
     let turn = Turn {
-        url: "turn:152.42.216.199:3478".to_owned(),
-        username: "myrts".to_owned(),
-        password: "myrts".to_owned(),
+        url: "turn:159.223.68.165:3478".to_owned(),
+        username: "brandio".to_owned(),
+        password: "brandio".to_owned(),
     };
     stream.write("turn", turn).await
 }
