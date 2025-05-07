@@ -118,8 +118,8 @@ pub fn setup_initial_data(db: &ApiDatabase) -> Result<()> {
         if creds.len() == 0 {
             diesel::insert_into(docs_credentials::table)
                 .values(&NewDocCredential {
-                    username: "myrts".to_string(),
-                    password: "myrts".to_string(),
+                    username: "brandio".to_string(),
+                    password: "brandio".to_string(),
                 })
                 .execute(conn)?;
         }
@@ -131,10 +131,10 @@ pub fn setup_initial_data(db: &ApiDatabase) -> Result<()> {
                 "qcynaut@gmail.com".to_owned(),
                 Bcrypt::hash("abc12345").unwrap_or_default(),
             );
-            #[cfg(not(debug_assertions))]
+            // #[cfg(not(debug_assertions))]
             let (name, email, password) = (
-                "Firman".to_owned(),
-                "tgpmyrts@gmail.com".to_owned(),
+                "TSI".to_owned(),
+                "tsi@sansathan.io".to_owned(),
                 Bcrypt::hash(&utils::crypto::random_string(8)).unwrap_or_default(),
             );
             diesel::insert_into(users::table)
