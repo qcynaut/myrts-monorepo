@@ -44,10 +44,13 @@ impl Mail {
         subject: &str,
         body: &str,
     ) -> Result<(), Box<dyn std::error::Error>> {
-        let mail =
-            CreateEmailBaseOptions::new(self.from.clone(), to.to_string(), subject.to_string())
-                .with_html(body);
-        self.re.send_email(mail).await?;
+        let mail = CreateEmailBaseOptions::new(
+            self.from.clone(),
+            vec![to.to_string()],
+            subject.to_string(),
+        )
+        .with_html(body);
+        self.re.emails.send(mail).await?;
         Ok(())
     }
 
