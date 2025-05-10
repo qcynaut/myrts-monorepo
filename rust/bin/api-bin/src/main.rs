@@ -38,7 +38,7 @@ async fn main() -> tokio::io::Result<()> {
         "postgres://postgres:postgres@localhost:5432/myrts",
     );
     let jwt_secret = utils::env::load_env("JWT_SECRET", "myrts");
-    let smtp_host = utils::env::load_env("SMTP_KEY", "none");
+    let smtp_key = utils::env::load_env("SMTP_KEY", "none");
     let smtp_from = utils::env::load_env("SMTP_FROM", "qcynaut");
     let api_assets = utils::env::load_env("API_ASSETS", "devdata/data");
     let base_url = utils::env::load_env("BASE_URL", "http://localhost:1451");
