@@ -74,6 +74,6 @@ impl Mail {
         let html = RESET_TEMPLATE
             .replace("{{{url}}}", url)
             .replace("{{{name}}}", name);
-        self.send(to, "MYRTS - Reset password", &html)
+        self.send(to, "MYRTS - Reset password", &html).await
     }
 }
