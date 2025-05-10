@@ -184,6 +184,7 @@ async fn post(
             &user.email,
             &cfg.format_web(format!("/verify/{uuid}")),
         )
+        .await
         .map_err(ApiError::new)?;
         AuthRes::new(token, true).wrap()
     } else {
@@ -235,6 +236,7 @@ async fn post_forgot(
         &user.email,
         &cfg.format_web(format!("/reset/{}", forgot.uuid)),
     )
+    .await
     .map_err(ApiError::new)?;
     Message::new("ok".to_owned()).wrap()
 }

@@ -15,14 +15,7 @@ MyRTS agrees to credit you as the developer of the software in all promotional m
 If MyRTS violates any of these terms, their license to use the software will automatically terminate.
 */
 
-use lettre::{
-    message::header,
-    transport::smtp::{
-        authentication::{Credentials, Mechanism},
-        PoolConfig,
-    },
-    Message, SmtpTransport, Transport,
-};
+use resend_rs::{types::CreateEmailBaseOptions, Resend};
 
 const CONFIRM_TEMPLATE: &'static str = include_str!("./mail/confirm_mail.html");
 const RESET_TEMPLATE: &'static str = include_str!("./mail/reset_mail.html");
@@ -31,45 +24,35 @@ const RESET_TEMPLATE: &'static str = include_str!("./mail/reset_mail.html");
 /// The mailing utility.
 #[derive(Clone)]
 pub struct Mail {
-    transport: SmtpTransport,
+    re: Resend,
     from: String,
 }
 
 impl Mail {
     /// Create a new Mail.
-    pub fn new(
-        host: &str,
-        username: &str,
-        password: &str,
-        from: &str,
-        port: u16,
-    ) -> Result<Self, Box<dyn std::error::Error>> {
-        let transport = SmtpTransport::starttls_relay(host)?
-            .credentials(Credentials::new(username.to_owned(), password.to_owned()))
-            .authentication(vec![Mechanism::Plain])
-            .pool_config(PoolConfig::new().max_size(20))
-            .port(port)
-            .build();
+    pub fn new(api_key: &str, from: &str) -> Result<Self, Box<dyn std::error::Error>> {
         Ok(Mail {
-            transport,
+            re: Resend::new(api_key)?,
             from: from.to_string(),
         })
     }
 
     /// Send an email.
-    fn send(&self, to: &str, subject: &str, body: &str) -> Result<(), Box<dyn std::error::Error>> {
-        let mail = Message::builder()
-            .header(header::ContentType::TEXT_HTML)
-            .from(self.from.parse()?)
-            .to(to.parse()?)
-            .subject(subject)
-            .body(body.to_owned())?;
-        self.transport.send(&mail)?;
+    async fn send(
+        &self,
+        to: &str,
+        subject: &str,
+        body: &str,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        let mail =
+            CreateEmailBaseOptions::new(self.from.clone(), to.to_string(), subject.to_string())
+                .with_html(body);
+        self.re.send_email(mail).await?;
         Ok(())
     }
 
     /// Send confirmation email.
-    pub fn send_confirmation(
+    pub async fn send_confirmation(
         &self,
         name: &str,
         to: &str,
@@ -78,11 +61,11 @@ impl Mail {
         let html = CONFIRM_TEMPLATE
             .replace("{{{url}}}", url)
             .replace("{{{name}}}", name);
-        self.send(to, "MYRTS - Login confirmation", &html)
+        self.send(to, "MYRTS - Login confirmation", &html).await
     }
 
     /// Send reset email.
-    pub fn send_reset(
+    pub async fn send_reset(
         &self,
         name: &str,
         to: &str,

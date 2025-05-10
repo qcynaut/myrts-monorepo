@@ -38,10 +38,7 @@ async fn main() -> tokio::io::Result<()> {
         "postgres://postgres:postgres@localhost:5432/myrts",
     );
     let jwt_secret = utils::env::load_env("JWT_SECRET", "myrts");
-    let smtp_host = utils::env::load_env("SMTP_HOST", "localhost");
-    let smtp_port = utils::env::load_env("SMTP_PORT", "25");
-    let smtp_user = utils::env::load_env("SMTP_USER", "qcynaut");
-    let smtp_pass = utils::env::load_env("SMTP_PASS", "password");
+    let smtp_host = utils::env::load_env("SMTP_KEY", "none");
     let smtp_from = utils::env::load_env("SMTP_FROM", "qcynaut");
     let api_assets = utils::env::load_env("API_ASSETS", "devdata/data");
     let base_url = utils::env::load_env("BASE_URL", "http://localhost:1451");
@@ -62,14 +59,7 @@ async fn main() -> tokio::io::Result<()> {
         }
     };
     let jwt = Jwt::new(&jwt_secret);
-    let mail = Mail::new(
-        &smtp_host,
-        &smtp_user,
-        &smtp_pass,
-        &smtp_from,
-        smtp_port.parse().unwrap_or_default(),
-    )
-    .expect("Failed to create mail");
+    let mail = Mail::new(&smtp_key, &smtp_from).expect("Failed to create mail");
 
     let assets = ApiAssets::new(&api_assets).expect("Failed to create assets");
 

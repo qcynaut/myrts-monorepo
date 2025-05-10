@@ -1,23 +1,23 @@
 [Unit]
-Description=Remote access for myrts
+Description=Brandio Server API
 
 [Service]
-ExecStart=/var/lib/myrts/api-bin
+ExecStart=/var/lib/brandio/api-bin
 User=root
 Restart=always
 Environment="API_ASSETS=/data"
 Environment="API_PORT=1451"
-Environment="BASE_URL=https://api.myrts.id"
-Environment="DATABASE_URL=postgresql://postgres:ADB6E2bF*aeA6g3GAA5F6e4b1bfBb1dD@viaduct.proxy.rlwy.net:56560/myrts"
-Environment="JWT_SECRET=myrts"
+Environment="BASE_URL=https://api.brandio.id"
+Environment="DATABASE_URL=postgresql://postgres:Sag2025Sukses!@localhost:5432/brandio"
+Environment="JWT_SECRET=brandio"
 Environment="LOG_LEVEL=debug"
-Environment="SMTP_FROM=info@myrts.id"
-Environment="SMTP_HOST=smtp.elasticemail.com"
-Environment="SMTP_PASS=3E36989A73AD1BE852AFD0ED206F1457C8E7"
-Environment="SMTP_PORT=2525"
-Environment="SMTP_USER=info@myrts.id"
+Environment="SMTP_FROM=info@mail.brandio.id"
+Environment="SMTP_HOST=smtp.resend.com"
+Environment="SMTP_PASS=re_GqtD6VSL_JnfYfBKeKzSmuPceaYhdKjAh"
+Environment="SMTP_PORT=587"
+Environment="SMTP_USER=brandio"
 Environment="STREAM_PORT=1452"
-Environment="WEB_URL=https://myrts.id"
+Environment="WEB_URL=https://brandio.id"
 
 [Install]
 WantedBy=multi-user.target
