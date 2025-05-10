@@ -32,7 +32,7 @@ impl Mail {
     /// Create a new Mail.
     pub fn new(api_key: &str, from: &str) -> Result<Self, Box<dyn std::error::Error>> {
         Ok(Mail {
-            re: Resend::new(api_key)?,
+            re: Resend::new(api_key),
             from: from.to_string(),
         })
     }
